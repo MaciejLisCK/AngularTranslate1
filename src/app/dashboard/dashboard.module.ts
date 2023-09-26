@@ -5,8 +5,9 @@ import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule, TranslateService, TranslateStore } from '@ngx-translate/core';
+import { SharedModule } from '../shared/shared.module';
 
-export function createTranslateLoader(http: HttpClient) {
+export function createDashboardTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/dashboard/', '.json');
 }
 
@@ -14,20 +15,21 @@ export function createTranslateLoader(http: HttpClient) {
   declarations: [DashboardComponent],
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild([
       { path: 'index', component: DashboardComponent },
     ]),
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
+        useFactory: (createDashboardTranslateLoader),
         deps: [HttpClient]
       },
-      extend: true,
+      extend: true
     })
   ],
   providers:[TranslateStore],
-  exports: [RouterModule, TranslateModule]
+  exports: []
 })
 export class DashboardModule { 
   constructor(translate: TranslateService) {
