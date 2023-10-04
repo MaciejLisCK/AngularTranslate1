@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent {
   title = 'AngularTranslate';
-  constructor(translate: TranslateService) {
+  constructor(public translate: TranslateService) {
     //translate.use('pl');
   }
 }
