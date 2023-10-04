@@ -1,26 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { TranslateLoader, TranslateModule, TranslateService, TranslateStore } from '@ngx-translate/core';
+import { HttpClientModule } from '@angular/common/http';
+import { TranslateModule, TranslateService, TranslateStore } from '@ngx-translate/core';
 import { CustomComponent } from './components/custom/custom.component';
-
-export function createSharedTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/shared/', '.json');
-}
+import { TranslationSharedPL } from './translation.pl';
+import { TranslationCommonPL } from '../dashboard/translation.pl';
 
 @NgModule({
   declarations: [CustomComponent],
   imports: [
     CommonModule,
     HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (createSharedTranslateLoader),
-        deps: [HttpClient]
-      },
-    })
+    TranslateModule
   ],
   providers:[TranslateStore],
   exports:[
@@ -30,6 +21,7 @@ export function createSharedTranslateLoader(http: HttpClient) {
 })
 export class SharedModule { 
   constructor(translate: TranslateService) {
-    translate.use('pl');
+    translate.setTranslation('pl', TranslationSharedPL);
+    translate.setTranslation('pl', TranslationCommonPL);
   }
 }
